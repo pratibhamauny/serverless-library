@@ -21,6 +21,7 @@ provider:
         - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
+        - dynamodb:DeleteItem
       Resource: "*"
 resources:
   Resources:
@@ -48,6 +49,30 @@ functions:
       - http:
           path: library
           method: get
+          cors: true
+
+  getByISBN:
+    handler: api/handlerGet.getByISBN
+    events:
+      - http:
+          path: library/{id}
+          method: get
+          cors: true
+
+  delete:
+    handler: api/handlerDelete.delete
+    events:
+      - http:
+          path: library/{id}
+          method: delete
+          cors: true
+
+  batchCreate:
+    handler: api/handlerBatchCreate
+    events:
+      - http:
+          path: library
+          method: post
           cors: true
 
   create:
